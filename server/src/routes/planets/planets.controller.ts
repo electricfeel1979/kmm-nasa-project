@@ -1,9 +1,9 @@
 import {Request, Response} from 'express';
 
-import planets from '../../model/planets.model';
+import planetsModel from '../../models/planets/planets.model';
 
 function getAllPlanets(req: Request, res: Response) {
-  return res.status(200).json(planets);
+  return res.status(200).json(planetsModel.planets);
 }
 
 export {getAllPlanets};
