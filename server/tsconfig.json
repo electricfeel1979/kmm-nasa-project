@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "rootDir": "./src",  
+    // "lib": ["esnext"],  // Uncomment and adjust if you need specific JavaScript features
+  },
+  // Include your TypeScript files here. Adjust the path as needed.
+  "include": ["**/*.ts"]
+}
