@@ -10,7 +10,8 @@
     "build": "tsc",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
-    "watch": "nodemon src/server.ts"
+    "watch": "nodemon src/server.ts",
+    "cluster": "pm2 start src/server.ts -i max"
   },
   "keywords": [],
   "author": "",
@@ -19,7 +20,8 @@
     "cors": "^2.8.5",
     "csv-parse": "^5.5.2",
     "express": "^4.18.2",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "pm2": "^2.10.4"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
