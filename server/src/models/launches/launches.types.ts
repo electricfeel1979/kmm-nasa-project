@@ -4,7 +4,7 @@ export type Launch = {
   rocket: string;
   launchDate: Date;
   target: string;
-  customer: string[];
+  customers: string[];
   upcoming: boolean;
   success: boolean;
 };
