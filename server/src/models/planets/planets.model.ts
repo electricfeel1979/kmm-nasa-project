@@ -33,7 +33,7 @@ function loadPlanetsData() {
         reject(err);
       })
       .on('end', () => {
-        console.log(habitablePlanets);
+        // console.log(habitablePlanets);
         console.log(
           habitablePlanets.map(planet => {
             return planet['kepler_name'];
