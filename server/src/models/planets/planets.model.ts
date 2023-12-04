@@ -52,12 +52,12 @@ function loadPlanetsData() {
   });
 }
 
-function getAllPlanets() {
-  return habitablePlanets;
+async function getAllPlanets() {
+  return await planets.find({});
 }
 
 export default {
   getAllPlanets,
-  planets: habitablePlanets,
+  // planets: habitablePlanets,
   loadPlanetsData,
 };
