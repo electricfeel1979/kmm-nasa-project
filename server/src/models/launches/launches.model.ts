@@ -1,6 +1,7 @@
 import {Launch} from './launches.types';
 
 import launchesDatabase from './launches.mongo';
+import planets from '../planets/planets.mongo';
 
 const launches = new Map();
 
@@ -23,13 +24,21 @@ function existsLaunchWithId(launchId: number) {
   return launches.has(launchId);
 }
 
-function getAllLaunches() {
+async function getAllLaunches() {
   console.log('getAllLaunches');
   console.log(launches.values());
-  return Array.from(launches.values());
+  return await launchesDatabase.find({}, {_id: 0, __v: 0});
 }
 
 async function saveLaunch(launch: Launch) {
+  const planet = await planets.findOne({
+    keplerName: launch.target,
+  });
+
+  if (!planet) {
+    throw new Error('No matching planet found');
+  }
+
   await launchesDatabase.updateOne(
     {
       flightNumber: launch.flightNumber,

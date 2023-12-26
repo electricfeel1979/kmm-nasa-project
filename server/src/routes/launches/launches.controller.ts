@@ -2,8 +2,8 @@ import {Request, Response} from 'express';
 
 import launchesModel from '../../models/launches/launches.model';
 
-function httpGetAllLaunches(req: Request, res: Response) {
-  return res.status(200).json(Array.from(launchesModel.getAllLaunches()));
+async function httpGetAllLaunches(req: Request, res: Response) {
+  return res.status(200).json(await launchesModel.getAllLaunches());
 }
 
 function httpAddNewLaunch(req: Request, res: Response) {
