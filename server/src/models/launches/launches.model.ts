@@ -1,5 +1,7 @@
 import {Launch} from './launches.types';
 
+import launchesDatabase from './launches.mongo';
+
 const launches = new Map();
 
 let latestFlightNumber = 100;
@@ -15,7 +17,7 @@ const launch: Launch = {
   success: true,
 };
 
-launches.set(launch.flightNumber, launch);
+saveLaunch(launch);
 
 function existsLaunchWithId(launchId: number) {
   return launches.has(launchId);
@@ -25,6 +27,18 @@ function getAllLaunches() {
   console.log('getAllLaunches');
   console.log(launches.values());
   return Array.from(launches.values());
+}
+
+async function saveLaunch(launch: Launch) {
+  await launchesDatabase.updateOne(
+    {
+      flightNumber: launch.flightNumber,
+    },
+    launch,
+    {
+      upsert: true,
+    }
+  );
 }
 
 function addNewLaunch(launch: Launch) {
