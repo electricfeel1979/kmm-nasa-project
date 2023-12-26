@@ -5,8 +5,6 @@ import planets from '../planets/planets.mongo';
 
 const DEFAULT_FLIGHT_NUMBER = 100;
 
-const launches = new Map();
-
 const launch: Launch = {
   flightNumber: 100,
   mission: 'Kepler Exploration X',
@@ -20,8 +18,10 @@ const launch: Launch = {
 
 saveLaunch(launch);
 
-function existsLaunchWithId(launchId: number) {
-  return launches.has(launchId);
+async function existsLaunchWithId(launchId: number) {
+  return await launchesDatabase.findOne({
+    flightNumber: launchId,
+  });
 }
 
 async function getLatestFlightNumber() {
@@ -36,7 +36,6 @@ async function getLatestFlightNumber() {
 
 async function getAllLaunches() {
   console.log('getAllLaunches');
-  console.log(launches.values());
   return await launchesDatabase.find({}, {_id: 0, __v: 0});
 }
 
@@ -73,17 +72,25 @@ async function scheduleNewLaunch(launch: Launch) {
   await saveLaunch(newLaunch);
 }
 
-function abortLaunchById(launchId: number) {
-  const aborted = launches.get(launchId);
-  aborted.upcoming = false;
-  aborted.succezs = false;
-  return aborted;
+async function abortLaunchById(launchId: number) {
+  const aborted = await launchesDatabase.updateOne(
+    {
+      flightNumber: launchId,
+    },
+    {
+      upcoming: false,
+      success: false,
+    }
+  );
+
+  console.log(aborted);
+
+  return aborted.acknowledged && aborted.modifiedCount === 1;
 }
 
 export default {
   getAllLaunches,
   scheduleNewLaunch,
-  launches,
   existsLaunchWithId,
   abortLaunchById,
 };
