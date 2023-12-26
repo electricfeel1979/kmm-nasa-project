@@ -6,11 +6,12 @@ async function httpGetAllLaunches(req: Request, res: Response) {
   return res.status(200).json(await launchesModel.getAllLaunches());
 }
 
-function httpAddNewLaunch(req: Request, res: Response) {
+async function httpAddNewLaunch(req: Request, res: Response) {
   const launch = req.body;
 
   const {mission, rocket, launchDate, target} = launch;
 
+  console.log(launch);
   if (!mission || !rocket || !launchDate || !target) {
     return res.status(400).json({
       error: 'Missing required launch property',
@@ -25,7 +26,7 @@ function httpAddNewLaunch(req: Request, res: Response) {
     });
   }
 
-  launchesModel.addNewLaunch(launch);
+  await launchesModel.scheduleNewLaunch(launch);
   return res.status(201).json(launch);
 }
 
