@@ -3,9 +3,9 @@ import {Launch} from './launches.types';
 import launchesDatabase from './launches.mongo';
 import planets from '../planets/planets.mongo';
 
-const launches = new Map();
+const DEFAULT_FLIGHT_NUMBER = 100;
 
-let latestFlightNumber = 100;
+const launches = new Map();
 
 const launch: Launch = {
   flightNumber: 100,
@@ -22,6 +22,16 @@ saveLaunch(launch);
 
 function existsLaunchWithId(launchId: number) {
   return launches.has(launchId);
+}
+
+async function getLatestFlightNumber() {
+  const latestLaunch = await launchesDatabase.findOne().sort('-flightNumber');
+
+  if (!latestLaunch) {
+    return DEFAULT_FLIGHT_NUMBER;
+  }
+
+  return latestLaunch.flightNumber;
 }
 
 async function getAllLaunches() {
