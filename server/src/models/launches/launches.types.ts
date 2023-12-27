@@ -1,3 +1,14 @@
+export type LaunchFilter = {
+  flightNumber?: number;
+  launchDate?: Date | string;
+  mission?: string;
+  rocket?: string;
+  target?: string;
+  customers?: string[];
+  upcoming?: boolean;
+  success?: boolean;
+};
+
 export type Launch = {
   flightNumber: number;
   mission: string;
