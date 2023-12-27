@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+dotenv.config();
 
 // Update below to match your own MongoDB connection string.
 console.log(process.env.MONGO_URL);
