@@ -1,9 +1,13 @@
 import {Request, Response} from 'express';
 
 import launchesModel from '../../models/launches/launches.model';
+import {getPagination} from '../../services/query';
 
 async function httpGetAllLaunches(req: Request, res: Response) {
-  return res.status(200).json(await launchesModel.getAllLaunches());
+  console.log('httpGetAllLaunches');
+  console.log(req.query);
+  const {skip, limit} = getPagination(req.query);
+  return res.status(200).json(await launchesModel.getAllLaunches(skip, limit));
 }
 
 async function httpAddNewLaunch(req: Request, res: Response) {
