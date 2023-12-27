@@ -13,8 +13,8 @@ export type Launch = {
   flightNumber: number;
   mission: string;
   rocket: string;
-  launchDate: Date;
-  target: string;
+  launchDate: Date | string;
+  target?: string;
   customers: string[];
   upcoming: boolean;
   success: boolean;
