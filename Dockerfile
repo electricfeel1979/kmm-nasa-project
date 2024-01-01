@@ -9,6 +9,7 @@ RUN npm run install-client --omit=dev
 
 COPY server/package*.json server/
 RUN npm run install-server --omit=dev
+RUN cd server && npm install ts-node --save-dev
 
 COPY client/ client/
 RUN npm run build --prefix client
